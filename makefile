@@ -2,6 +2,7 @@
 SHELL := cmd.exe
 CXX := @g++
 CXXFLAGS := -std=c++11 -O2 -Wall -pedantic
+CXXFLAGS += -I.
 LIBS := 
 LIBS_STATIC := 
 
