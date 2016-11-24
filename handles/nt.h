@@ -2,9 +2,8 @@
 #define _NT_H_
 
 #include <windows.h>
-#include <Winternl.h>
 #include <ntstatus.h>
-
+#include <Winternl.h>
 
 namespace nt {
 

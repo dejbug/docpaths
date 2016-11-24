@@ -3,9 +3,9 @@ SHELL := cmd.exe
 CXX := @g++
 CXXFLAGS := -std=c++11 -O2 -Wall -pedantic
 CXXFLAGS += -I.
-LIBS := 
+LIBS := -lntdll
 LIBS_STATIC := 
-LIB_HANDLES := sys.o
+LIB_HANDLES := sys.o text.o
 LIB_HANDLES := $(addprefix handles/,$(LIB_HANDLES))
 
 .PHONY: all clean run

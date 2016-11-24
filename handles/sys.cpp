@@ -1,7 +1,4 @@
 #include "sys.h"
-// #include <shlwapi.h>
-// #include <Shlobj.h>
-
 
 sys::Dll::Dll(char const * path) : handle(nullptr) {
 	handle = LoadLibrary(path);
@@ -9,14 +6,12 @@ sys::Dll::Dll(char const * path) : handle(nullptr) {
 		throw LoadError("Dll: unable to load library");
 }
 
-
 sys::Dll::~Dll() {
 	if(handle) {
 		FreeLibrary(handle);
 		handle = nullptr;
 	}
 }
-
 
 sys::Timestamp::Timestamp(unsigned long date, char const * format) {
 	tm * temp = localtime((time_t *)&date);
@@ -29,11 +24,9 @@ sys::Timestamp::Timestamp(unsigned long date, char const * format) {
 	}
 }
 
-
 char const * sys::Timestamp::GetString() const {
 	return s.c_str();
 }
-
 
 void sys::JoinStrings(typ::string & out,
 		typ::strings const & strings, char const * delim) {
@@ -47,4 +40,3 @@ void sys::JoinStrings(typ::string & out,
 		out += it->data();
 	}
 }
-

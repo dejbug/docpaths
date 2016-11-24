@@ -29,7 +29,6 @@ struct Dll {
 	}
 };
 
-
 struct Timestamp {
 	tm t;
 	std::string s;
@@ -38,7 +37,6 @@ struct Timestamp {
 
 	char const * GetString() const;
 };
-
 
 void JoinStrings(typ::string & out,
 	typ::strings const & strings, char const * delim="\r\n");
