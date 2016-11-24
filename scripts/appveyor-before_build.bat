@@ -11,4 +11,6 @@ PUSHD %MINGW_BIN%
 rename mingw32-make.exe make.exe 
 POPD
 
+git submodule update --init --recursive
+
 echo -- project is ready for make
