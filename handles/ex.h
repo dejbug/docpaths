@@ -6,6 +6,7 @@
 namespace ex {
 
 DEFINE_EXCEPTION(std::runtime_error, Error)
+DEFINE_EXCEPTION(Error, OutOfMemoryError)
 
 }
 

@@ -5,7 +5,7 @@ CXXFLAGS := -std=c++11 -O2 -Wall -pedantic
 CXXFLAGS += -I.
 LIBS := -lntdll
 LIBS_STATIC := 
-LIB_HANDLES := sys.o text.o
+LIB_HANDLES := sys.o text.o path.o handles.o
 LIB_HANDLES := $(addprefix handles/,$(LIB_HANDLES))
 
 .PHONY: all clean run
