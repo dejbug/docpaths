@@ -1,13 +1,13 @@
 
-# docpaths
-
-A SysInternal's "handles.exe" clone in library form.
-
 [![Build status](https://ci.appveyor.com/api/projects/status/2ajaq92mwe4urmkl?svg=true)](https://ci.appveyor.com/project/dejbug/docpaths)
+
+# introduction
+
+Very often would I have too many PDFs open and I needed a one-click way to save a log of open documents before I close their viewers. This is going to become a simple GUI (and a C++ library) for just that.
 
 # download
 
-The binaries for tagged builds can be downladed from the `releases` tab. Development builds can be fetched from the [AppVeyor](https://ci.appveyor.com/project/dejbug/docpaths/history) history (from the `Artifacts` tab).
+The binaries for tagged builds can be downladed from the `releases` tab. Development builds can be fetched from the [AppVeyor history](https://ci.appveyor.com/project/dejbug/docpaths/history) (from the `Artifacts` tab).
 
 # usage
 
