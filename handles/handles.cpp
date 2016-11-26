@@ -94,7 +94,7 @@ HANDLE handles::RemoteHandleLocalizer::Localize(
 
 	HANDLE localHandle = nullptr;
 	HANDLE ownerProcess = OpenProcess(
-		PROCESS_ALL_ACCESS, FALSE, ownerPid);
+		PROCESS_DUP_HANDLE, FALSE, ownerPid);
 	
 	if(!DuplicateHandle(ownerProcess, remoteHandle,
 		myProcess, (LPHANDLE)&localHandle,
@@ -119,9 +119,13 @@ void handles::FileHandlePathGetter::GetPath(typ::string & path,
 	nt::SYSTEM_HANDLE_ENTRY const & h) {
 
 	RemoteHandleLocalizer rhl;
-	HANDLE handle = rhl.Localize(h);
-	GetPath(path, handle);
-	CloseHandle(handle);
+	try {
+		HANDLE handle = rhl.Localize(h);
+		GetPath(path, handle);
+		CloseHandle(handle);
+	} catch(HandlesError & e) {
+		// this is a system handle, hence not a document.
+	}
 }
 
 void handles::FileHandlePathGetter::GetPath(
@@ -248,11 +252,11 @@ void handles::HandleEnumerator::GetFilePathsForProcess(
 void handles::HandleEnumerator::GetFilePathsForProcess(
 	typ::strings &paths, char const * name) {
 
-	if(!name || !*name) return;
-	
 	handles::ProcessIdFinder pif;
 	handles::ProcessIdFinder::PIDNAMES pidnames;
-	pif.Find(pidnames, name);
+
+	if(name && *name)
+		pif.Find(pidnames, name);
 	
 	if(!pidnames.empty()) {
 		for(auto it = pidnames.begin(); it != pidnames.end(); ++it) {
@@ -317,11 +321,16 @@ void handles::FilterPaths(typ::strings & paths, char const * ext) {
 
 void handles::FilterPaths(typ::strings & out,
 	typ::strings const & paths, char const * ext) {
-
+	
 	for(auto it = paths.begin(); it != paths.end(); ++it) {
-		path::SplitPath sp(it->c_str());
-		if(!(ext && *ext) || !stricmp(sp.GetExt(), ext))
-			out.push_back(*it);
+		if(it->empty()) continue;
+		try {
+			path::SplitPath sp(it->c_str());
+			if(!(ext && *ext) || !stricmp(sp.GetExt(), ext))
+				out.push_back(*it);
+		} catch(std::invalid_argument & e) {
+			// imporper path, couldn't split. ignore it.
+		}
 	}
 }
 
